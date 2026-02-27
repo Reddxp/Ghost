@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Redd Beats | Enter The Realm</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    background:
+    linear-gradient(rgba(0,0,0,0.75), rgba(10,0,25,0.9)),
+    url('purple.jfif') no-repeat center center;
+    background-size:cover;
+    color:#f3e8ff;
+    overflow:hidden;
+}
+
+/* FLOATING PARTICLES */
+body::before{
+    content:"";
+    position:fixed;
+    width:200%;
+    height:200%;
+    background: repeating-radial-gradient(circle,
+        rgba(199,125,255,0.05) 2px,
+        transparent 4px);
+    animation: moveBg 30s linear infinite;
+    z-index:0;
+}
+@keyframes moveBg{
+    from{ transform:translateY(0); }
+    to{ transform:translateY(-200px); }
+}
+
+/* INTRO SCREEN */
+#intro-screen{
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:linear-gradient(rgba(10,0,20,0.98), rgba(20,0,40,1));
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    z-index:999;
+    text-align:center;
+}
+
+/* GLITCH TITLE */
+.glitch{
+    font-size:60px;
+    color:#c77dff;
+    position:relative;
+    animation: glitch 1s infinite;
+}
+@keyframes glitch{
+    0%{text-shadow:2px 2px #5a189a;}
+    20%{text-shadow:-2px -2px #9d4edd;}
+    40%{text-shadow:2px -2px #7b2cbf;}
+    60%{text-shadow:-2px 2px #5a189a;}
+    80%{text-shadow:2px 2px #9d4edd;}
+    100%{text-shadow:-2px -2px #7b2cbf;}
+}
+
+/* ENTER BUTTON */
+#enter-btn{
+    margin-top:40px;
+    padding:15px 40px;
+    font-size:20px;
+    border:none;
+    border-radius:40px;
+    cursor:pointer;
+    background:linear-gradient(90deg,#5a189a,#9d4edd);
+    color:white;
+    font-weight:bold;
+    box-shadow:0 0 25px #c77dff;
+    animation:shake 2s infinite;
+    transition:0.3s;
+}
+#enter-btn:hover{
+    transform:scale(1.1);
+}
+@keyframes shake{
+    0%{transform:translateX(0);}
+    25%{transform:translateX(3px);}
+    50%{transform:translateX(-3px);}
+    75%{transform:translateX(2px);}
+    100%{transform:translateX(0);}
+}
+
+/* SMOKE EFFECT */
+.smoke{
+    position:absolute;
+    width:200px;
+    height:200px;
+    background:radial-gradient(circle,#9d4edd 0%, transparent 70%);
+    opacity:0;
+    border-radius:50%;
+    pointer-events:none;
+}
+
+/* MAIN CONTENT */
+nav, .hero{
+    opacity:0;
+    transition:opacity 2s ease;
+    position:relative;
+    z-index:2;
+}
+
+nav{
+    display:flex;
+    justify-content:space-between;
+    padding:20px 60px;
+    background:rgba(0,0,0,0.6);
+    backdrop-filter:blur(8px);
+}
+
+nav h2{
+    color:#c77dff;
+}
+
+nav ul{
+    display:flex;
+    list-style:none;
+    gap:30px;
+}
+
+nav ul li a{
+    text-decoration:none;
+    color:#e0aaff;
+    font-weight:bold;
+}
+
+.hero{
+    height:85vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+}
+
+.hero h1{
+    font-size:70px;
+    text-transform:uppercase;
+    color:#c77dff;
+    text-shadow:0 0 30px #7b2cbf;
+}
+
+.hero p{
+    margin-top:20px;
+    max-width:600px;
+    color:#d0b3ff;
+}
+</style>
+</head>
+
+<body>
+
+<!-- AUDIO FILES -->
+<audio id="bg-music" loop>
+    <source src="GhostRealm.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="thunder-sound">
+    <source src="GhostRealm.mp3" type="audio/mpeg">
+</audio>
+
+<!-- INTRO -->
+<div id="intro-screen">
+    <h1 class="glitch">ENTER THE SOUND GHOST REALM</h1>
+    <button id="enter-btn">▶ Enter If You Dare</button>
+</div>
+
+<!-- MAIN CONTENT -->
+<nav>
+    <h2>ReddBeats</h2>
+    <ul>
+        <li><a href="#">Beats</a></li>
+    </ul>
+</nav>
+
+<section class="hero">
+    <h1>Welcome to the Ghost Realm</h1>
+    <p>
+       You have stepped into a dimension.
+       where beats echo in the dark
+       basslines move like ghosts, 
+       and rhythm rules the night. 
+       Place that is ruled by Freddie Rian.
+       The Founder of Ghost Realm.
+       Don’t be afraid…
+       it’s only dangerous if you can’t handle the vibe..
+    </p>
+</section>
+
+<script>
+const enterBtn = document.getElementById("enter-btn");
+const intro = document.getElementById("intro-screen");
+const nav = document.querySelector("nav");
+const hero = document.querySelector(".hero");
+const music = document.getElementById("bg-music");
+const thunder = document.getElementById("thunder-sound");
+
+enterBtn.addEventListener("click", () => {
+
+    // Play thunder
+    thunder.volume = 0.6;
+    thunder.play();
+
+    // Play background music
+    music.volume = 0.4;
+    music.play();
+
+    // Smoke explosion
+    const smoke = document.createElement("div");
+    smoke.classList.add("smoke");
+    smoke.style.left = "50%";
+    smoke.style.top = "50%";
+    smoke.style.transform = "translate(-50%, -50%)";
+    document.body.appendChild(smoke);
+
+    smoke.animate([
+        {opacity:0, transform:"translate(-50%, -50%) scale(0.5)"},
+        {opacity:1, transform:"translate(-50%, -50%) scale(2)"},
+        {opacity:0, transform:"translate(-50%, -50%) scale(3)"}
+    ],{
+        duration:1500,
+        easing:"ease-out"
+    });
+
+    // Fade intro
+    intro.style.opacity="0";
+    setTimeout(()=>{intro.style.display="none";},1500);
+
+    // Reveal content
+    nav.style.opacity="1";
+    hero.style.opacity="1";
+});
+</script>
+
+</body>
+</html>
